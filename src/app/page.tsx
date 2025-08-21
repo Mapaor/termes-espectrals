@@ -15,7 +15,7 @@ import {
 } from "@/components";
 
 export default function Home() {
-  const [input, setInput] = useState("1s^2 2s^2 2p^6 3s^1");
+  const [input, setInput] = useState("1s^2 2s^2 2p^6 3s^2 3p^3 4s^1");
   const [showParity, setShowParity] = useState(false);
   const [showDegeneracy, setShowDegeneracy] = useState(false);
   const [showFineStructure, setShowFineStructure] = useState(false);

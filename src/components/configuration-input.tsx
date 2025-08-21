@@ -16,12 +16,12 @@ export function ConfigurationInput({ value, onChange, errors }: ConfigurationInp
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full rounded-xl border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
-        placeholder="Ex.: 1s^2 2s^2 2p^6 3s^1"
+        placeholder="Ex.: 1s^2 2s^2 2p^5 3s^1"
       />
       <div className="space-y-1 text-xs text-slate-500">
         <p>
           <strong>Format:</strong> Subcapes separades per espais amb exponents (^). 
-          Ex: <code className="bg-slate-100 px-1 rounded">1s^2 2s^2 2p^6 3s^1</code>
+          Ex: <code className="bg-slate-100 px-1 rounded">1s^2 2s^2 2p^5 3s^1</code>
         </p>
         <p>
           <strong>Suportades:</strong> Orbitals s, p i d. 
