@@ -59,7 +59,10 @@ export function CombinedTerms({
       </div>
       
       {combinedWithJ.length === 0 ? (
-        <div className="text-sm text-slate-500">— (esperant entrada vàlida)</div>
+        <div className="text-sm text-slate-500">
+          Els termes de diferents subcapes es combinaran automàticament 
+          seguint les regles de Russell-Saunders.
+        </div>
       ) : (
         <div className="space-y-3">
           {combinedWithJ.map((termWithJ, i) => {

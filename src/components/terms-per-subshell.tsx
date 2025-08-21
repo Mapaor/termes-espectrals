@@ -22,7 +22,10 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
     <div className="bg-white rounded-2xl shadow p-4 md:p-6">
       <h2 className="font-semibold mb-3">Termes per subcapa</h2>
       {perShellTerms.length === 0 ? (
-        <div className="text-sm text-slate-500">—</div>
+        <div className="text-sm text-slate-500">
+          Introdueix una configuració electrònica per veure els termes Russell-Saunders 
+          generats per cada subcapa parcialment plena.
+        </div>
       ) : (
         <div className="space-y-4">
           {perShellTerms.map((item, idx) => {
@@ -36,7 +39,7 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
                   <span className="text-sm text-slate-600">{item.shell}</span>
                   {showDegeneracy && degeneracy && (
                     <span className="text-xs text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
-                        𝔇 = {degeneracy}
+                      𝔇 = {degeneracy}
                     </span>
                   )}
                 </div>

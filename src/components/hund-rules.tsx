@@ -87,11 +87,12 @@ export function HundRules({
 
   return (
     <div className="bg-white rounded-2xl shadow p-4 md:p-6">
-      <h2 className="font-semibold mb-4">Aplicació de les regles de Hund</h2>
+      <h2 className="font-semibold mb-4">Regles de Hund per ordenació energètica</h2>
       
       {allFineStructureTerms.length === 0 ? (
         <div className="text-sm text-slate-500">
-          — (activa l&apos;estructura fina per veure els termes)
+          Activa l&apos;estructura fina per aplicar les regles de Hund 
+          i determinar l&apos;ordre energètic dels nivells.
         </div>
       ) : (
         <div className="space-y-6">

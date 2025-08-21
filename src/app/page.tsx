@@ -15,7 +15,7 @@ import {
 } from "@/components";
 
 export default function Home() {
-  const [input, setInput] = useState("1s^2 2s^1 2p^1");
+  const [input, setInput] = useState("1s^2 2s^2 2p^6 3s^1");
   const [showParity, setShowParity] = useState(false);
   const [showDegeneracy, setShowDegeneracy] = useState(false);
   const [showFineStructure, setShowFineStructure] = useState(false);
@@ -29,41 +29,34 @@ export default function Home() {
       <div className="max-w-5xl mx-auto space-y-6">
         <Header />
 
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="md:col-span-2">
-            <ConfigurationInput
-              value={input}
-              onChange={setInput}
-              errors={errors}
-            />
-          </div>
-
-          <aside className="md:col-span-1">
-            <SemiOpenSubshells semiOpen={semiOpen} />
-          </aside>
-        </div>
+        <section>
+          <ConfigurationInput
+            value={input}
+            onChange={setInput}
+            errors={errors}
+          />
+        </section>
 
         <div className="grid md:grid-cols-3 gap-4">
-          <div className="md:col-span-2">
-            <TermsPerSubshell 
-              perShellTerms={perShellTerms} 
-              semiOpen={semiOpen}
-              showDegeneracy={showDegeneracy}
-            />
-          </div>
-
-          <aside className="md:col-span-1 space-y-4">
-            <ParityToggle 
-              showParity={showParity}
-              onToggle={setShowParity}
-              parity={parity}
-            />
-            <DegeneracyToggle
-              showDegeneracy={showDegeneracy}
-              onToggle={setShowDegeneracy}
-            />
-          </aside>
+          <SemiOpenSubshells semiOpen={semiOpen} />
+          <ParityToggle 
+            showParity={showParity}
+            onToggle={setShowParity}
+            parity={parity}
+          />
+          <DegeneracyToggle
+            showDegeneracy={showDegeneracy}
+            onToggle={setShowDegeneracy}
+          />
         </div>
+
+        <section>
+          <TermsPerSubshell 
+            perShellTerms={perShellTerms} 
+            semiOpen={semiOpen}
+            showDegeneracy={showDegeneracy}
+          />
+        </section>
 
         <section>
           <CombinedTerms 
