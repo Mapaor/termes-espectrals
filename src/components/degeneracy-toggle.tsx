@@ -38,6 +38,9 @@ export function DegeneracyToggle({ showDegeneracy, onToggle }: DegeneracyToggleP
             <strong>Degeneració per terme:</strong> 𝔇<sub>terme</sub> = (2L+1)(2S+1)
           </div>
           <div>
+            <strong>Degeneració per estructura fina:</strong> 𝔇<sub>J</sub> = 2J+1
+          </div>
+          <div>
             <strong>Degeneració total:</strong> 𝔇<sub>total</sub> = ∏ 𝔇<sub>subcapa</sub>
           </div>
           <p className="text-slate-500 text-xs mt-2">

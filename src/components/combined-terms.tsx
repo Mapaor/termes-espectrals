@@ -80,27 +80,35 @@ export function CombinedTerms({
                       𝔇 = {termDegeneracy}
                     </span>
                   )}
-                  {showFineStructure && fineStructureDegeneracy && (
+                  {/* {showFineStructure && fineStructureDegeneracy && (
                     <span className="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
                       J-nivells: {fineStructureDegeneracy}
                     </span>
-                  )}
+                  )} */}
                 </div>
                 
                 {showFineStructure && termWithJ.jValues.length > 0 && (
                   <div className="ml-4 flex flex-wrap gap-2">
-                    {termWithJ.jValues.map((jValue, jIndex) => (
-                      <span
-                        key={jIndex}
-                        className="px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-sm"
-                      >
-                        <SpectralTerm 
-                          term={termWithJ.term}
-                          jValue={jValue}
-                          parity={showParity ? parity : undefined}
-                        />
-                      </span>
-                    ))}
+                    {termWithJ.jValues.map((jValue, jIndex) => {
+                      const jDegeneracy = showDegeneracy ? (2 * jValue + 1) : null;
+                      
+                      return (
+                        <div key={jIndex} className="flex items-center gap-2">
+                          <span className="px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-sm">
+                            <SpectralTerm 
+                              term={termWithJ.term}
+                              jValue={jValue}
+                              parity={showParity ? parity : undefined}
+                            />
+                          </span>
+                          {showDegeneracy && jDegeneracy && (
+                            <span className="text-xs text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
+                              𝔇 = {jDegeneracy}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
