@@ -26,18 +26,34 @@ export function useHundSorting({
 }: UseHundSortingProps) {
   
   const result = useMemo(() => {
-    // Determinar si les subcapes estan més de mig plenes
-    const isMoreThanHalfFilled = () => {
-      let totalElectrons = 0;
-      let totalForats = 0;
+    // Determinar l'estat d'ocupació de la subcapa més externa per aplicar la regla 3 de Hund
+    const isOutermostSubshellMoreThanHalfFilled = () => {
+      if (semiOpen.length === 0) return false;
       
-      semiOpen.forEach(subshell => {
-        const maxElectrons = subshell.shell === 's' ? 2 : subshell.shell === 'p' ? 6 : 10;
-        totalElectrons += subshell.e;
-        totalForats += (maxElectrons - subshell.e);
+      // Trobar la subcapa amb el nivell principal més alt (més externa)
+      const outermostSubshell = semiOpen.reduce((outer, current) => {
+        const outerLevel = parseInt(outer.shell[0]);
+        const currentLevel = parseInt(current.shell[0]);
+        
+        // Si mateix nivell, comparem s < p < d < f
+        if (outerLevel === currentLevel) {
+          const subshellOrder = { 's': 0, 'p': 1, 'd': 2, 'f': 3 };
+          const outerSubtype = outer.shell.slice(1);
+          const currentSubtype = current.shell.slice(1);
+          return subshellOrder[currentSubtype as keyof typeof subshellOrder] > 
+                 subshellOrder[outerSubtype as keyof typeof subshellOrder] ? current : outer;
+        }
+        
+        return currentLevel > outerLevel ? current : outer;
       });
       
-      return totalElectrons > totalForats;
+      const maxElectrons = outermostSubshell.shell.includes('s') ? 2 : 
+                          outermostSubshell.shell.includes('p') ? 6 : 
+                          outermostSubshell.shell.includes('d') ? 10 : 14;
+      
+      // Retorna true si la subcapa més externa té més de la meitat d'electrons
+      // Exemples: 3p^4 (4 de 6) = false (≤ mig plena), 3p^5 (5 de 6) = true (> mig plena)
+      return outermostSubshell.e > maxElectrons / 2;
     };
 
     // Aplicar regles d'ordenació amb lògica més precisa
@@ -71,8 +87,8 @@ export function useHundSorting({
     }
     
     if (applyRule3) {
-      // Regla 3: Per mateixa S i L, ordenem per J segons ocupació
-      const moreThanHalf = isMoreThanHalfFilled();
+      // Regla 3: Per mateixa S i L, ordenem per J segons ocupació de la subcapa més externa
+      const moreThanHalf = isOutermostSubshellMoreThanHalfFilled();
       sortedTerms.sort((a, b) => {
         // Primer ordenem per S (major S = menor energia)
         if (Math.abs(a.S - b.S) > 1e-9) {
@@ -82,9 +98,9 @@ export function useHundSorting({
         if (a.L !== b.L) {
           return b.L - a.L;
         }
-        // Finalment per J (segons regla de Hund per mateixa S i L)
-        // Si subcapa ≤ mig plena: menor J = menor energia (ordre ascendent)
-        // Si subcapa > mig plena: major J = menor energia (ordre descendent)
+        // Finalment per J segons la regla 3 de Hund:
+        // Si subcapa més externa ≤ mig plena: menor J = menor energia
+        // Si subcapa més externa > mig plena: major J = menor energia
         return moreThanHalf ? (b.jValue - a.jValue) : (a.jValue - b.jValue);
       });
       

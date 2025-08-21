@@ -118,7 +118,7 @@ export function HundRules({
               isActive={applyRule3}
               onToggle={handleToggleRule3}
               disabled={!applyRule2}
-              description="Ordenació per J: menor J si ≤mig ple, major J si >mig ple"
+              description="Ordenació per menor J si capa més externa ≤mig plena, per major J si >mig plena"
             />
           </div>
 
@@ -136,7 +136,7 @@ export function HundRules({
       <div className="mt-4 text-xs text-slate-500">
         <p>
           <strong>Regles de Hund:</strong> (1) Màxima multiplicitat, (2) Major L per mateixa multiplicitat, 
-          (3) Per subcapes ≤mig plenes: menor J; per subcapes &gt;mig plenes: major J.
+          (3) Si subcapa més externa ≤mig plena: menor J; si subcapa més externa &gt;mig plena: major J.
         </p>
         <p className="mt-1">
           Aquestes regles determinen l&apos;ordre energètic i identifiquen l&apos;estat fonamental.
