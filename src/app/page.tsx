@@ -15,6 +15,7 @@ import {
 export default function Home() {
   const [input, setInput] = useState("1s^2 2s^1 2p^1");
   const [showParity, setShowParity] = useState(false);
+  const [showFineStructure, setShowFineStructure] = useState(false);
   const { semiOpen, perShellTerms, combinedWithJ, parity, errors } = useSpectralTerms(input);
 
   return (
@@ -55,6 +56,8 @@ export default function Home() {
             combinedWithJ={combinedWithJ} 
             parity={parity}
             showParity={showParity}
+            showFineStructure={showFineStructure}
+            onToggleFineStructure={setShowFineStructure}
           />
         </section>
 
