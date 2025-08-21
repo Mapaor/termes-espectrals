@@ -40,7 +40,7 @@ export function CombinedTerms({
   return (
     <div className="bg-white rounded-2xl shadow p-4 md:p-6">
       <div className="flex items-center justify-between mb-3">
-        <h2 className="font-semibold">Termes combinats (àtom)</h2>
+        <h2 className="font-semibold">Termes espectrals àtom</h2>
         <div className="flex items-center gap-3">
           <label className="text-sm text-slate-700">Estructura fina</label>
           <button

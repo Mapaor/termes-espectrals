@@ -20,7 +20,7 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
 
   return (
     <div className="bg-white rounded-2xl shadow p-4 md:p-6">
-      <h2 className="font-semibold mb-3">Termes per subcapa</h2>
+      <h2 className="font-semibold mb-3">Termes espectrals per subcapa</h2>
       {perShellTerms.length === 0 ? (
         <div className="text-sm text-slate-500">
           Introdueix una configuració electrònica per veure els termes Russell-Saunders 
@@ -29,14 +29,15 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
       ) : (
         <div className="space-y-4">
           {perShellTerms.map((item, idx) => {
-            const orbitalType = item.shell.replace(/\d+/, ''); // Extreu s, p, d, f
+            // Extreu la subcapa (ex: '3d' de '3d9')
+            const subcapa = item.shell.match(/^\d+[spdf]/)?.[0] || item.shell;
+            const orbitalType = item.shell.replace(/\d+/, ''); // Manté per compatibilitat amb la lògica existent
             const electrons = getSubshellElectrons(item.shell);
             const degeneracy = showDegeneracy ? calculateSubshellDegeneracy(orbitalType, electrons) : null;
-            
             return (
               <div key={idx}>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm text-slate-600">{item.shell}</span>
+                  <span className="text-sm text-slate-600">{subcapa}</span>
                   {showDegeneracy && degeneracy && (
                     <span className="text-xs text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
                       𝔇 = {degeneracy}

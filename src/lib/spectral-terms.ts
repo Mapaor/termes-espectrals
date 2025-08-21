@@ -202,7 +202,7 @@ export function parseConfig(input: string): { subshells: Subshell[]; errors: str
   for (const tok of tokens) {
     const m = tok.match(/^(\d+)([spdf])(\^\d+)?$/i);
     if (!m) {
-      errors.push(`Token invàlid: \`${tok}\``);
+      errors.push(`Input invàlid: \`${tok}\``);
       continue;
     }
     const n = parseInt(m[1], 10);
