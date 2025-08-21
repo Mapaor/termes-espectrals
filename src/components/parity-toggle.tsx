@@ -34,7 +34,7 @@ export function ParityToggle({ showParity, onToggle, parity }: ParityToggleProps
       {showParity && (
         <div className="text-xs text-slate-600 bg-slate-50 rounded-lg p-2">
           La paritat es calcula com (-1)<sup>Σlᵢ</sup> on lᵢ és el nombre quàntic orbital 
-          de cada electró en subcapes semi-plenes.
+          de cada electró. Només cal tenir en compte les subcapes parcialment plenes.
         </div>
       )}
     </div>

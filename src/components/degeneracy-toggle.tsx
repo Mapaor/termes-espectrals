@@ -32,7 +32,7 @@ export function DegeneracyToggle({ showDegeneracy, onToggle }: DegeneracyToggleP
         <div className="text-xs text-slate-600 bg-slate-50 rounded-lg p-2 space-y-2">
           <p className="font-medium text-slate-700 mb-2">Fórmules utilitzades:</p>
           <div>
-            <strong>Degeneració per subcapa:</strong> 𝔇<sub>subcapa</sub> = C(2(2l+1), N<sub>e</sub>)
+            <strong>Degeneració per subcapa:</strong> 𝔇<sub>subcapa</sub> =  Binom(2(2l+1), N<sub>e</sub>)
           </div>
           <div>
             <strong>Degeneració per terme:</strong> 𝔇<sub>terme</sub> = (2L+1)(2S+1)
