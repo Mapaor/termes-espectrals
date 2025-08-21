@@ -254,6 +254,31 @@ function toSubscript(num: number): string {
   return num.toString().split('').map(digit => subscriptMap[digit] || digit).join('');
 }
 
+// Formata el valor J com a fracció amb subscripts (mantenim per compatibilitat)
+function formatJValue(j: number): string {
+  // Si J és un nombre enter, retorna com a subscript normal
+  if (j % 1 === 0) {
+    return toSubscript(j);
+  }
+  
+  // Si J és una fracció mitja, usa caràcters Unicode
+  const fractionMap: Record<string, string> = {
+    '0.5': '₁⁄₂',         
+    '1.5': '₃⁄₂',         
+    '2.5': '₅⁄₂',         
+    '3.5': '₇⁄₂',         
+    '4.5': '₉⁄₂',         
+    '5.5': '₁₁⁄₂',        
+    '6.5': '₁₃⁄₂',        
+    '7.5': '₁₅⁄₂',        
+    '8.5': '₁₇⁄₂',        
+    '9.5': '₁₉⁄₂',        
+  };
+  
+  const jStr = j.toString();
+  return fractionMap[jStr] || toSubscript(j);
+}
+
 export interface TermWithJ {
   term: LabeledTerm;
   jValues: number[];
@@ -286,6 +311,42 @@ export function calculateJValues(S: number, L: number): number[] {
   return jValues;
 }
 
+// Funcions per calcular degeneració
+function binomialCoefficient(n: number, k: number): number {
+  if (k > n || k < 0) return 0;
+  if (k === 0 || k === n) return 1;
+  
+  // Optimització: C(n,k) = C(n,n-k)
+  if (k > n - k) k = n - k;
+  
+  let result = 1;
+  for (let i = 0; i < k; i++) {
+    result = result * (n - i) / (i + 1);
+  }
+  return Math.round(result);
+}
+
+export function calculateSubshellDegeneracy(shell: string, electrons: number): number {
+  // D_capa = C(2(2l+1), Ne)
+  const lValues: Record<string, number> = { 's': 0, 'p': 1, 'd': 2, 'f': 3 };
+  const l = lValues[shell] ?? 0;
+  const maxOrbitals = 2 * (2 * l + 1); // Nombre màxim d'electrons
+  return binomialCoefficient(maxOrbitals, electrons);
+}
+
+export function calculateTermDegeneracy(term: Term): number {
+  // D_terme = (2L+1)(2S+1)
+  return (2 * term.L + 1) * (2 * term.S + 1);
+}
+
+export function calculateTotalDegeneracy(semiOpen: Array<{ shell: string; e: number }>): number {
+  // D = ∏ D_capa
+  return semiOpen.reduce((total, subshell) => {
+    const degeneracy = calculateSubshellDegeneracy(subshell.shell, subshell.e);
+    return total * degeneracy;
+  }, 1);
+}
+
 // Formatejat de termes amb diferents opcions
 export function formatTerm(t: Term): string {
   const mult = SToMult(t.S);
@@ -296,7 +357,7 @@ export function formatTerm(t: Term): string {
 export function formatTermWithJ(t: Term, j: number): string {
   const mult = SToMult(t.S);
   const lLetter = L_TO_LETTER[t.L] || `L=${t.L}`;
-  return `${toSuperscript(mult)}${lLetter}${toSubscript(j)}`;
+  return `${toSuperscript(mult)}${lLetter}${formatJValue(j)}`;
 }
 
 export function formatTermWithParity(t: Term, parity: 'e' | 'o'): string {
@@ -310,5 +371,5 @@ export function formatTermWithJAndParity(t: Term, j: number, parity: 'e' | 'o'):
   const mult = SToMult(t.S);
   const lLetter = L_TO_LETTER[t.L] || `L=${t.L}`;
   const paritySymbol = parity === 'e' ? 'ᵉ' : 'ᵒ';
-  return `${toSuperscript(mult)}${lLetter}${toSubscript(j)}${paritySymbol}`;
+  return `${toSuperscript(mult)}${lLetter}${formatJValue(j)}${paritySymbol}`;
 }

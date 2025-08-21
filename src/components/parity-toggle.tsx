@@ -17,12 +17,12 @@ export function ParityToggle({ showParity, onToggle, parity }: ParityToggleProps
         </label>
         <button
           onClick={() => onToggle(!showParity)}
-          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-            showParity ? 'bg-sky-600' : 'bg-slate-200'
+          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ease-in-out ${
+            showParity ? 'bg-green-600' : 'bg-slate-200'
           }`}
         >
           <span
-            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-all duration-200 ease-in-out ${
               showParity ? 'translate-x-6' : 'translate-x-1'
             }`}
           />

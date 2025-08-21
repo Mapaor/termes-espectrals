@@ -1,1 +1,51 @@
 @import "tailwindcss";
+
+/* Estils personalitzats per fraccions */
+.fraction {
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.fraction .numerator {
+  display: block;
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 0.9;
+}
+
+.fraction .denominator {
+  display: block;
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 0.9;
+  border-top: 1px solid currentColor;
+  margin-top: 1px;
+}
+
+/* Versió inline més compacta per subscripts */
+.inline-fraction {
+  display: inline;
+  font-size: 0.75em;
+  vertical-align: sub;
+}
+
+.inline-fraction .num {
+  font-size: 0.85em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.inline-fraction .slash {
+  font-size: 0.6em;
+  margin: 0 1px;
+  vertical-align: baseline;
+}
+
+.inline-fraction .den {
+  font-size: 0.85em;
+  vertical-align: sub;
+  line-height: 0;
+}
