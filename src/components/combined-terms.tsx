@@ -112,7 +112,7 @@ export function CombinedTerms({
       {combinedWithJ.length > 0 && (
         <div className="mt-4 space-y-1">
           <p className="text-xs text-slate-500">
-            Construïts amb la regla d&apos;addició: S ∈ {"{|S₁−S₂|,…,S₁+S₂}"}, L ∈{" "}
+            Calculats amb la regla d&apos;addició: S ∈ {"{|S₁−S₂|,…,S₁+S₂}"}, L ∈{" "}
             {"{|L₁−L₂|,…,L₁+L₂}"} en salts d&apos;1.
           </p>
           {showFineStructure && (
