@@ -90,7 +90,7 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
             
             {/* Modal header */}
             <div className="p-6 pb-4 border-b border-slate-200">
-              <h3 className="text-xl font-semibold text-slate-800 pr-12">Taula de termes espectrals per subcapes</h3>
+              <h3 className="text-xl font-semibold text-slate-800 pr-8">Taula de termes espectrals per subcapes</h3>
             </div>
             
             {/* Modal content - scrollable */}
@@ -243,7 +243,7 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
               {/* Reference citation */}
               <div className="mt-2 pt-2">
                 <p className="text-sm text-slate-500 text-center">
-                  La original es troba a <a href="https://www.if.ufrj.br/~ginette/2017-FIW476/livros%20e%20artigos/Physics_of_atoms_and_molecules_Bransden_Joachain.pdf#page=353" className="hover:text-slate-400 transition-all duration-100 ease-in-out underline cursor-pointer">
+                  L&apos;original es troba a <a href="https://www.if.ufrj.br/~ginette/2017-FIW476/livros%20e%20artigos/Physics_of_atoms_and_molecules_Bransden_Joachain.pdf#page=353" className="hover:text-slate-400 transition-all duration-100 ease-in-out underline cursor-pointer">
                   Physics of Atoms and Molecules (Bransden, 1990)</a>, pàg. 345.
                 </p>
               </div>
