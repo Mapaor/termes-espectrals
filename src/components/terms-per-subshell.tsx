@@ -90,7 +90,7 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
             
             {/* Modal header */}
             <div className="p-6 pb-4 border-b border-slate-200">
-              <h3 className="text-xl font-semibold text-slate-800">Taula de termes espectrals per subcapes</h3>
+              <h3 className="text-xl font-semibold text-slate-800 pr-12">Taula de termes espectrals per subcapes</h3>
             </div>
             
             {/* Modal content - scrollable */}
