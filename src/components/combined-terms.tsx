@@ -5,7 +5,8 @@ import {
   calculateTermDegeneracy,
   calculateTotalDegeneracy,
   type LabeledTerm, 
-  type TermWithJ 
+  type TermWithJ,
+  type Subshell
 } from "@/lib/spectral-terms";
 import { SpectralTerm } from "./spectral-term";
 
@@ -15,7 +16,7 @@ interface CombinedTermsProps {
   showParity: boolean;
   showFineStructure: boolean;
   showDegeneracy?: boolean;
-  semiOpen?: Array<{ shell: string; e: number }>;
+  semiOpen?: Subshell[];
   onToggleFineStructure: (show: boolean) => void;
 }
 
@@ -39,13 +40,13 @@ export function CombinedTerms({
 
   return (
     <div className="bg-white rounded-2xl shadow p-4 md:p-6">
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="font-semibold">Termes espectrals àtom</h2>
+      <div className="flex items-center justify-between mb-3 gap-3">
+        <h2 className="font-semibold min-w-0">Termes espectrals àtom</h2>
         <div className="flex items-center gap-3">
-          <label className="text-sm text-slate-700">Estructura fina</label>
+          <label className="text-sm text-slate-700 min-w-0">Estructura fina</label>
           <button
             onClick={() => onToggleFineStructure(!showFineStructure)}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ease-in-out ${
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ease-in-out flex-shrink-0 ${
               showFineStructure ? 'bg-green-600' : 'bg-slate-200'
             }`}
           >

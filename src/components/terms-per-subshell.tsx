@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { formatTerm, calculateSubshellDegeneracy, type Term } from "@/lib/spectral-terms";
+import { formatTerm, calculateSubshellDegeneracy, calculateTermDegeneracy, type Term, type Subshell } from "@/lib/spectral-terms";
 
 interface TermsPerSubshellProps {
   perShellTerms: Array<{
     shell: string;
     terms: Term[];
   }>;
-  semiOpen?: Array<{ shell: string; e: number }>;
+  semiOpen?: Subshell[];
   showDegeneracy?: boolean;
 }
 
@@ -14,9 +14,14 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
   const [showModal, setShowModal] = useState(false);
   
   const getSubshellElectrons = (shellName: string) => {
-    // Extraiem la lletra de l'orbital (s, p, d, f) del nom complet (2s, 3p, etc.)
-    const orbitalType = shellName.replace(/\d+/, ''); // Elimina els números
-    return semiOpen.find(s => s.shell === orbitalType)?.e || 0;
+    // Extreu n i tipus d'orbital de strings com "3p3" o "4s"
+    const match = shellName.match(/^(\d+)([spdf])/);
+    if (!match) return 0;
+    
+    const n = parseInt(match[1], 10);
+    const orbitalType = match[2];
+    
+    return semiOpen.find(s => s.n === n && s.shell === orbitalType)?.e || 0;
   };
 
   return (
@@ -32,28 +37,35 @@ export function TermsPerSubshell({ perShellTerms, semiOpen = [], showDegeneracy 
           {perShellTerms.map((item, idx) => {
             // Extreu la subcapa (ex: '3d' de '3d9')
             const subcapa = item.shell.match(/^\d+[spdf]/)?.[0] || item.shell;
-            const orbitalType = item.shell.replace(/\d+/, ''); // Manté per compatibilitat amb la lògica existent
+            const orbitalType = item.shell.match(/[spdf]/)?.[0] || ''; // Extreu només la lletra orbital
             const electrons = getSubshellElectrons(item.shell);
             const degeneracy = showDegeneracy ? calculateSubshellDegeneracy(orbitalType, electrons) : null;
             return (
               <div key={idx}>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-sm text-slate-600">{subcapa}</span>
-                  {showDegeneracy && degeneracy && (
+                  {showDegeneracy && degeneracy !== null && (
                     <span className="text-xs text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
                       𝔇 = {degeneracy}
                     </span>
                   )}
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {item.terms.map((t, i) => (
-                    <span
-                      key={i}
-                      className="px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-sm"
-                    >
-                      {formatTerm(t)}
-                    </span>
-                  ))}
+                  {item.terms.map((t, i) => {
+                    const termDegeneracy = showDegeneracy ? calculateTermDegeneracy(t) : null;
+                    return (
+                      <div key={i} className="flex items-center gap-1">
+                        <span className="px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-sm">
+                          {formatTerm(t)}
+                        </span>
+                        {showDegeneracy && termDegeneracy !== null && (
+                          <span className="text-xs text-purple-600 bg-purple-50 px-2 py-0.5 rounded">
+                            𝔇 = {termDegeneracy}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             );
