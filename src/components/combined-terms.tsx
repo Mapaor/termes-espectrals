@@ -134,7 +134,7 @@ export function CombinedTerms({
                 Degeneració total de l&apos;àtom: 𝔇 = {totalDegeneracy.toLocaleString()}
               </p>
               <p className="text-xs text-purple-600 mt-1">
-                Nombre total d&apos;estats possibles per aquesta configuració electrònica.
+                Nombre total de microestats possibles (m<sub>l</sub> i m<sub>s</sub> de cada electró) per aquesta configuració electrònica.
               </p>
             </div>
           )}
